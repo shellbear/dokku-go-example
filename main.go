@@ -32,7 +32,9 @@ func main() {
 	}
 
 	// Create Todo model migrations.
-	db.Create(&models.Todo{})
+	if err := db.AutoMigrate(&models.Todo{}); err != nil {
+		log.Fatalln("failed to run migrations:", err)
+	}
 
 	e := echo.New()
 
